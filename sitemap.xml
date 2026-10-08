@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://ghk0409.github.io/weissflow-blog/index.html</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://ghk0409.github.io/weissflow-blog/posts/pivot-from-trading-bot-to-ai-copilot.html</loc><lastmod>2026-10-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ghk0409.github.io/weissflow-blog/posts/obsidian-second-brain-and-ai-gardener.html</loc><lastmod>2026-10-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ghk0409.github.io/weissflow-blog/posts/zero-cost-ai-shortform-video-automation.html</loc><lastmod>2026-10-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ghk0409.github.io/weissflow-blog/posts/zero-dependency-cli-and-ast-impact-analyzer.html</loc><lastmod>2026-10-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ghk0409.github.io/weissflow-blog/posts/discord-cog-refactoring-and-unified-event-bus.html</loc><lastmod>2026-10-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+</urlset>

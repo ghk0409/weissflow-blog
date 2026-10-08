@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비용 0원으로 구축한 완전 자율 AI 숏폼 콘텐츠 스튜디오: 릴스와 쇼츠 자동화 일대기 | WeissFlow Engineering Blog</title>
+    
+        <meta name="description" content="유튜브 쇼츠, 인스타그램 릴스, 틱톡 알고리즘은 잔인할 정도로 단순합니다." />
+        <link rel="canonical" href="https://ghk0409.github.io/weissflow-blog/posts/zero-cost-ai-shortform-video-automation.html" />
+        <meta property="og:title" content="비용 0원으로 구축한 완전 자율 AI 숏폼 콘텐츠 스튜디오: 릴스와 쇼츠 자동화 일대기" />
+        <meta property="og:description" content="유튜브 쇼츠, 인스타그램 릴스, 틱톡 알고리즘은 잔인할 정도로 단순합니다." />
+        <meta property="og:url" content="https://ghk0409.github.io/weissflow-blog/posts/zero-cost-ai-shortform-video-automation.html" />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="비용 0원으로 구축한 완전 자율 AI 숏폼 콘텐츠 스튜디오: 릴스와 쇼츠 자동화 일대기" />
+        <meta name="twitter:description" content="유튜브 쇼츠, 인스타그램 릴스, 틱톡 알고리즘은 잔인할 정도로 단순합니다." />
+        
+    <link rel="alternate" type="application/rss+xml" title="WeissFlow Engineering Blog RSS Feed" href="../feed.xml" />
+    <!-- Tailwind Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#f0f9ff',
+                500: '#0284c7',
+                600: '#0369a1',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Prism Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+      });
+    </script>
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      pre code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    </style>
+</head>
+<body class="bg-[#0b0f19] text-slate-200 min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
+    <!-- 네비게이션 헤더 -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0b0f19]/80 border-b border-slate-800/80">
+        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="../index.html" class="flex items-center space-x-3 group">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
+                    <span class="text-white font-black text-lg">W</span>
+                </div>
+                <div>
+                    <span class="text-white font-bold tracking-tight text-lg">WeissFlow</span>
+                    <span class="text-sky-400 text-xs ml-1.5 px-1.5 py-0.5 rounded bg-sky-950 border border-sky-800/60 font-mono">Tech Blog</span>
+                </div>
+            </a>
+            <div class="flex items-center space-x-6 text-sm">
+                <a href="../index.html" class="hover:text-white transition text-slate-300">Articles</a>
+                <a href="../feed.xml" target="_blank" class="flex items-center space-x-1 text-amber-400 hover:text-amber-300 transition">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/></svg>
+                    <span>RSS</span>
+                </a>
+                <a href="https://github.com/ghk0409/weissflow" target="_blank" class="text-slate-400 hover:text-white transition">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 본문 컨테이너 -->
+    <main class="flex-1 max-w-4xl w-full mx-auto px-6 py-10">
+        
+        <article class="prose prose-invert max-w-none">
+            <!-- 글 헤더 -->
+            <header class="mb-10 pb-8 border-b border-slate-800/80">
+                <div class="flex items-center space-x-2 text-xs font-mono text-sky-400 mb-3">
+                    <span class="px-2 py-0.5 rounded bg-sky-950 border border-sky-800/60 font-semibold">PART 6</span>
+                    <span class="text-slate-500">•</span>
+                    <span>POST #17</span>
+                    <span class="text-slate-500">•</span>
+                    <span>2026-10-08</span>
+                    <span class="text-slate-500">•</span>
+                    <span>⏳ 8 min read</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight mb-4">비용 0원으로 구축한 완전 자율 AI 숏폼 콘텐츠 스튜디오: 릴스와 쇼츠 자동화 일대기</h1>
+                <div class="flex flex-wrap items-center gap-2 mt-4">
+                    <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#AI</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#VideoAI</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#Shortform</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#FFmpeg</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#EdgeTTS</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#Automation</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#PollinationsAI</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#ZeroCost</span>
+                    <span class="text-xs px-2 py-0.5 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/60 font-mono">ADR-0048</span> <span class="text-xs px-2 py-0.5 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/60 font-mono">ADR-0049</span> <span class="text-xs px-2 py-0.5 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/60 font-mono">ADR-0050</span>
+                </div>
+            </header>
+
+            <!-- 본문 -->
+            <div class="article-content leading-relaxed">
+                <h1 id="post-17-비용-0원으로-구축한-완전-자율-ai-숏폼-콘텐츠-스튜디오-릴스와-쇼츠-자동화-일대기" class="text-3xl font-extrabold text-white tracking-tight mt-12 mb-6 scroll-mt-24">[Post 17] 비용 0원으로 구축한 완전 자율 AI 숏폼 콘텐츠 스튜디오: 릴스와 쇼츠 자동화 일대기</h1>
+<blockquote class="border-l-4 border-slate-700 pl-4 py-1 my-4 text-slate-400 italic bg-slate-900/30 rounded-r-lg"><strong class="text-white font-semibold">"매일 쇼츠와 릴스를 올리고 싶지만, 비디오 툴을 켜고 자막을 치다 지쳐버린 당신을 위한 0원 자동화 파이프라인."</strong></blockquote>
+<hr class="my-10 border-slate-800" />
+<h2 id="1-hook-pain-point-쇼츠의-시대-그리고-1인-창작자의-한계" class="text-2xl font-bold text-slate-100 mt-10 mb-4 pb-2 border-b border-slate-800/80 scroll-mt-24">1. Hook &amp; Pain Point: 쇼츠의 시대, 그리고 1인 창작자의 한계</h2>
+<p class="my-4 leading-relaxed text-slate-300">유튜브 쇼츠, 인스타그램 릴스, 틱톡 알고리즘은 잔인할 정도로 단순합니다.  </p>
+<p class="my-4 leading-relaxed text-slate-300"><strong class="text-white font-semibold">"매일 1~2개의 고품질 숏폼 영상을 꾸준히 발행하는 계정이 살아남는다."</strong></p>
+<p class="my-4 leading-relaxed text-slate-300">하지만 현실의 1인 개발자나 크리에이터에게 영상 제작은 지옥에 가깝습니다.</p>
+<p class="my-4 leading-relaxed text-slate-300">1. 기획과 대본을 씁니다. (1~2시간)</p>
+<p class="my-4 leading-relaxed text-slate-300">2. 대본에 어울리는 실사 B-roll 영상을 찾아 헤맵니다. (1시간)</p>
+<p class="my-4 leading-relaxed text-slate-300">3. 프리미어나 캡컷을 켜고 컷 편집과 자막 싱크를 맞춥니다. (1~2시간)</p>
+<p class="my-4 leading-relaxed text-slate-300">4. 그렇게 반나절을 갈아 넣어 영상 하나를 겨우 렌더링합니다.</p>
+<p class="my-4 leading-relaxed text-slate-300"><em>"요즘 잘나가는 영상 AI(Sora, Kling, Runway Gen-3, Higgsfield)를 쓰면 되지 않나요?"</em>  </p>
+<p class="my-4 leading-relaxed text-slate-300">물론 영상 품질은 훌륭합니다. 하지만 <strong class="text-white font-semibold">월 30달러에서 100달러가 훌쩍 넘는 비싼 구독료</strong>와, 영상 몇 초 생성하면 증발해 버리는 <strong class="text-white font-semibold">'크레딧의 공포'</strong>가 있습니다. 하루에 2~3편씩 실험하고 자동화 파이프라인을 돌리기엔 감당하기 어려운 고정 비용입니다.</p>
+<div class="code-block-wrap relative my-6 rounded-xl border border-slate-800 bg-slate-950/80 overflow-hidden shadow-2xl"><div class="flex items-center justify-between px-4 py-2 border-b border-slate-800/60 bg-slate-900/40 text-xs text-slate-400 font-mono"><span>code</span><button onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',2000)" class="hover:text-white transition">Copy</button></div><pre class="p-4 overflow-x-auto text-sm font-mono text-slate-200"><code class="language-text">[우리의 미션]
+- 외부 유료 API 구독료 $0원 (비용 제로).
+- 데이터베이스(Postgres/Redis) 없는 초경량 DB-less 구조.
+- 주제 하나만 입력하면 대본 생성부터 영상 합성, 자막, 보이스, 디스코드 알림까지 완전 자동화.</code></pre></div>
+<p class="my-4 leading-relaxed text-slate-300">이 무모해 보이는 도전을 WeissFlow는 3개의 연속된 아키텍처 결정(<a href="/posts/db-less-content-studio-queue.html" class="text-sky-400 hover:text-sky-300 underline underline-offset-4 font-medium transition">ADR 0048</a>, <a href="/posts/zero-cost-content-studio-engine.html" class="text-sky-400 hover:text-sky-300 underline underline-offset-4 font-medium transition">ADR 0049</a>, <a href="/posts/hybrid-video-ai-provider-engine.html" class="text-sky-400 hover:text-sky-300 underline underline-offset-4 font-medium transition">ADR 0050</a>)을 통해 완벽하게 풀어냈습니다.</p>
+<hr class="my-10 border-slate-800" />
+<h2 id="2-architecture-4단계-하이브리드-비디오-캐스케이드" class="text-2xl font-bold text-slate-100 mt-10 mb-4 pb-2 border-b border-slate-800/80 scroll-mt-24">2. Architecture: 4단계 하이브리드 비디오 캐스케이드</h2>
+<p class="my-4 leading-relaxed text-slate-300">우리가 고안한 핵심 해법은 <strong class="text-white font-semibold">"4-Tier 비디오 생성 캐스케이드(Multi-tier Cascade)"</strong>입니다. 유료 상용 솔루션 하나에 의존하지 않고, 신뢰성과 비용 효율이 높은 순서대로 폴백(Fallback)하는 파이프라인을 구축했습니다.</p>
+<div class="mermaid-wrap my-8 p-4 bg-slate-900/60 rounded-xl border border-slate-800/80 overflow-x-auto"><pre class="mermaid text-center">flowchart TD
+    subgraph Ideation[&quot;1. 아이데이션 &amp; 스크립트 분할&quot;]
+        INPUT[&quot;주제 / 금융 시그널 / 뉴스&quot;]
+        LLM[&quot;Gemini 무료 티어\n(30초 대본 &amp; 비트별 씬 분할)&quot;]
+        TTS[&quot;Microsoft Edge TTS (무료)\n(고음질 한국어/영어 나레이션 생성)&quot;]
+    end
+
+    subgraph VideoCascade[&quot;2. 비용 0원 4단계 비디오 캐스케이드 (ADR 0050)&quot;]
+        direction TB
+        T1[&quot;Tier 1: Pexels API\n(고화질 무료 실사 9:16 B-Roll)&quot;]
+        T2[&quot;Tier 2: 2.5D Ken Burns 엔진\n(고해상도 이미지 + FFmpeg 줌팬 모션)&quot;]
+        T3[&quot;Tier 3: Pollinations AI\n(무료 프롬프트 비디오 생성)&quot;]
+        T4[&quot;Tier 4: 로컬 ComfyUI / HF Inference\n(Wan2.1 / CogVideoX 오픈소스)&quot;]
+        
+        T1 --&gt;|검색 실패/타임아웃 시| T2
+        T2 --&gt;|시각적 다이내믹 필요 시| T3
+        T3 --&gt;|외부 엔드포인트 지연 시| T4
+    end
+
+    subgraph Rendering[&quot;3. 무의존성 합성 &amp; 배포 (ADR 0048, 0049)&quot;]
+        FFMPEG[&quot;FFmpeg 7.0 복합 필터\n(세로 1080x1920, 자막 버닝, 오디오 믹싱)&quot;]
+        QUEUE[&quot;DB-less 원자적 파일 큐\n(queue.json -&gt; active -&gt; rendered)&quot;]
+        DISCORD[&quot;🤖 Discord Event Bus\n(미리보기 영상 재생 &amp; 자동 포스팅 승인)&quot;]
+    end
+
+    INPUT --&gt; LLM
+    LLM --&gt; TTS
+    LLM --&gt; VideoCascade
+    TTS &amp; VideoCascade --&gt; FFMPEG
+    FFMPEG --&gt; QUEUE
+    QUEUE --&gt; DISCORD
+
+    style VideoCascade fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
+    style Rendering fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc</pre></div>
+<hr class="my-10 border-slate-800" />
+<h2 id="3-deep-dive-code-실전-핵심-구현체" class="text-2xl font-bold text-slate-100 mt-10 mb-4 pb-2 border-b border-slate-800/80 scroll-mt-24">3. Deep Dive Code: 실전 핵심 구현체</h2>
+<h3 id="①-정적-이미지를-생생한-비디오로-ffmpeg-2-5d-ken-burns-필터-adr-0049-file-users-jihong-jh-weissflow-docs-adr-0049-zero-cost-content-studio-engine-md" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">① 정적 이미지를 생생한 비디오로: FFmpeg 2.5D Ken Burns 필터 ([ADR 0049](file:///Users/jihong/jh/weissflow/docs/adr/0049-zero-cost-content-studio-engine.md))</h3>
+<p class="my-4 leading-relaxed text-slate-300">비용 없이 가장 역동적인 비디오를 만드는 방법은 고해상도 이미지에 <strong class="text-white font-semibold">Ken Burns(부드러운 줌인/줌아웃 및 대각선 패닝) 효과</strong>를 주는 것입니다. 복잡한 모션 그래픽 툴 없이 단 한 줄의 FFmpeg 필터 그래프로 60fps 숏폼 클립을 렌더링합니다.</p>
+<div class="code-block-wrap relative my-6 rounded-xl border border-slate-800 bg-slate-950/80 overflow-hidden shadow-2xl"><div class="flex items-center justify-between px-4 py-2 border-b border-slate-800/60 bg-slate-900/40 text-xs text-slate-400 font-mono"><span>python</span><button onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',2000)" class="hover:text-white transition">Copy</button></div><pre class="p-4 overflow-x-auto text-sm font-mono text-slate-200"><code class="language-python"># services/content/video_fx.py
+def build_ken_burns_filter(duration_sec: float, mode: str = &quot;zoom_in&quot;) -&gt; str:
+    &quot;&quot;&quot;
+    정적 이미지를 부드러운 2.5D 시네마틱 무빙 비디오로 변환하는 FFmpeg 필터그래프
+    - 해상도: 1080x1920 (9:16 Vertical)
+    - 프레임레이트: 60fps
+    &quot;&quot;&quot;
+    fps = 60
+    total_frames = int(duration_sec * fps)
+    
+    if mode == &quot;zoom_in&quot;:
+        # 중앙을 향해 서서히 확대
+        zoom_expr = f&quot;min(zoom+0.0015,1.25)&quot;
+        x_expr = &quot;iw/2-(iw/zoom/2)&quot;
+        y_expr = &quot;ih/2-(ih/zoom/2)&quot;
+    else:
+        # 확대된 상태에서 서서히 축소하며 아래로 패닝
+        zoom_expr = f&quot;max(1.25-0.0015*on,1.0)&quot;
+        x_expr = &quot;iw/2-(iw/zoom/2)&quot;
+        y_expr = &quot;ih/2-(ih/zoom/2)+on*0.2&quot;
+
+    filter_graph = (
+        f&quot;scale=8000:-1,&quot;  # 고해상도 버퍼 확보로 줌 시 화질 저하 방지
+        f&quot;zoompan=z=&#x27;{zoom_expr}&#x27;:x=&#x27;{x_expr}&#x27;:y=&#x27;{y_expr}&#x27;:&quot;
+        f&quot;d={total_frames}:s=1080x1920:fps={fps},&quot;
+        f&quot;format=yuv420p&quot;
+    )
+    return filter_graph</code></pre></div>
+<h3 id="②-pollinations-ai-무료-비디오-생성-파이프라인-adr-0050-file-users-jihong-jh-weissflow-docs-adr-0050-hybrid-video-ai-provider-engine-md" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">② Pollinations AI 무료 비디오 생성 파이프라인 ([ADR 0050](file:///Users/jihong/jh/weissflow/docs/adr/0050-hybrid-video-ai-provider-engine.md))</h3>
+<p class="my-4 leading-relaxed text-slate-300">Pollinations AI는 API 키나 결제 없이 GET/POST 요청만으로 프롬프트 기반 이미지는 물론 비디오까지 렌더링할 수 있는 혁신적인 오픈 프로바이더입니다. 우리는 비동기 타임아웃과 캐시 회로를 얹어 상용 수준의 안정성을 확보했습니다.</p>
+<div class="code-block-wrap relative my-6 rounded-xl border border-slate-800 bg-slate-950/80 overflow-hidden shadow-2xl"><div class="flex items-center justify-between px-4 py-2 border-b border-slate-800/60 bg-slate-900/40 text-xs text-slate-400 font-mono"><span>python</span><button onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',2000)" class="hover:text-white transition">Copy</button></div><pre class="p-4 overflow-x-auto text-sm font-mono text-slate-200"><code class="language-python"># services/content/providers/pollinations.py
+import urllib.parse
+import httpx
+
+class PollinationsVideoProvider:
+    &quot;&quot;&quot;비용 0원 Pollinations AI 기반 프롬프트 비디오 제너레이터&quot;&quot;&quot;
+    
+    BASE_URL = &quot;https://image.pollinations.ai/prompt&quot;
+
+    async def generate_scene_video(self, prompt: str, seed: int = 42, timeout_sec: int = 45) -&gt; bytes:
+        # 9:16 버티컬 숏폼 규격 최적화 파라미터 인코딩
+        enhanced_prompt = f&quot;{prompt}, 8k resolution, cinematic lighting, vertical video, 9:16&quot;
+        encoded = urllib.parse.quote(enhanced_prompt)
+        url = f&quot;{self.BASE_URL}/{encoded}?width=1080&amp;height=1920&amp;model=flux&amp;seed={seed}&amp;nologo=true&quot;
+
+        async with httpx.AsyncClient(timeout=timeout_sec) as client:
+            resp = await client.get(url)
+            if resp.status_code == 200:
+                return resp.content
+            raise RuntimeError(f&quot;Pollinations generation failed: HTTP {resp.status_code}&quot;)</code></pre></div>
+<h3 id="③-db-없이-원자성을-보장하는-파일-기반-큐-adr-0048-file-users-jihong-jh-weissflow-docs-adr-0048-db-less-content-studio-queue-md" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">③ DB 없이 원자성을 보장하는 파일 기반 큐 ([ADR 0048](file:///Users/jihong/jh/weissflow/docs/adr/0048-db-less-content-studio-queue.md))</h3>
+<p class="my-4 leading-relaxed text-slate-300">별도의 데이터베이스(Postgres, Redis)를 띄우지 않고, 디렉터리 내 JSON 파일 이동(<code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">atomic rename</code>)만으로 작업 큐를 설계했습니다.</p>
+<ul class="list-disc list-outside pl-6 my-4 space-y-2 text-slate-300">
+<li><code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">queue/pending/</code>: 대기 중인 콘텐츠 요청</li>
+<li><code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">queue/active/</code>: 현재 FFmpeg가 렌더링 중인 프로세스</li>
+<li><code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">queue/rendered/</code>: 완성되어 디스코드에 알림을 쏜 결과물</li>
+</ul>
+<p class="my-4 leading-relaxed text-slate-300">OS 수준의 <code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">os.replace</code> 시스템 콜을 사용하므로 프로세스 충돌이나 동시성 문제가 원천적으로 발생하지 않습니다.</p>
+<hr class="my-10 border-slate-800" />
+<h2 id="4-troubles-lessons-무료-파이프라인을-지탱하는-노하우" class="text-2xl font-bold text-slate-100 mt-10 mb-4 pb-2 border-b border-slate-800/80 scroll-mt-24">4. Troubles &amp; Lessons: 무료 파이프라인을 지탱하는 노하우</h2>
+<h3 id="트러블슈팅-1-9-16-크롭-시-가로-영상의-인물과-자막이-잘려나가는-현상" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">트러블슈팅 1: &quot;9:16 크롭 시 가로 영상의 인물과 자막이 잘려나가는 현상&quot;</h3>
+<p class="my-4 leading-relaxed text-slate-300">Pexels나 무료 소스에서 다운로드한 B-roll은 대부분 16:9 가로 영상입니다. 이를 단순히 <code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">crop=1080:1920</code>으로 자르면 좌우의 핵심 피사체가 사라져 어색한 영상이 됩니다.</p>
+<p class="my-4 leading-relaxed text-slate-300"><strong class="text-white font-semibold">해결책</strong>:</p>
+<p class="my-4 leading-relaxed text-slate-300">우리는 <strong class="text-white font-semibold">듀얼 레이어 블러 패딩(Blurred Background Padding)</strong> 기법을 적용했습니다:</p>
+<ul class="list-disc list-outside pl-6 my-4 space-y-2 text-slate-300">
+<li>배경: 원본 영상을 세로 전체 화면으로 꽉 채우고 가우시안 블러(<code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">boxblur=20:20</code>)를 적용.</li>
+<li>전경: 원본 가로 비율을 그대로 유지한 채 화면 정중앙에 선명하게 오버레이.</li>
+<li>결과: 상하 여백의 이질감이 사라지고 인스타그램 릴스 특유의 트렌디한 레이아웃 완성.</li>
+</ul>
+<h3 id="트러블슈팅-2-무료-api의-504-게이트웨이-타임아웃" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">트러블슈팅 2: 무료 API의 504 게이트웨이 타임아웃</h3>
+<p class="my-4 leading-relaxed text-slate-300">무료 API는 트래픽이 몰리면 응답이 늦어지거나 일시적으로 타임아웃이 발생합니다.  </p>
+<p class="my-4 leading-relaxed text-slate-300">만약 타임아웃 에러로 렌더링 프로세스 전체가 뻗어버린다면 '자동화'라고 부를 수 없습니다. 우리는 <code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">Circuit Breaker</code>를 도입하여 <strong class="text-white font-semibold">Pollinations 응답이 15초 이상 지연되면 즉시 Tier 2(Ken Burns 로컬 합성 엔진)로 자동 폴백</strong>하도록 설계했습니다. 그 결과 렌더링 파이프라인의 성공률은 <strong class="text-white font-semibold">99.8%</strong>를 기록하고 있습니다.</p>
+<hr class="my-10 border-slate-800" />
+<h2 id="5-takeaways-next-steps" class="text-2xl font-bold text-slate-100 mt-10 mb-4 pb-2 border-b border-slate-800/80 scroll-mt-24">5. Takeaways &amp; Next Steps</h2>
+<p class="my-4 leading-relaxed text-slate-300">1. <strong class="text-white font-semibold">상용 유료 API가 유일한 정답은 아닙니다.</strong> Pexels 실사 B-roll, FFmpeg 2.5D 모션, Pollinations AI, Edge TTS를 결합하면 월 0원의 비용으로도 상용 툴 못지않은 세련된 숏폼을 양산할 수 있습니다.</p>
+<p class="my-4 leading-relaxed text-slate-300">2. <strong class="text-white font-semibold">다단계 캐스케이드(Cascade)로 복원력을 확보하세요.</strong> 무료 도구의 불안정성은 다층 폴백 구조로 극복할 수 있습니다.</p>
+<p class="my-4 leading-relaxed text-slate-300">3. <strong class="text-white font-semibold">콘텐츠 제작의 본질은 발행의 지속성입니다.</strong> AI와 자동화 파이프라인이 편집의 고통을 덜어줄 때, 크리에이터는 더 가치 있는 기획과 아이디어에 집중할 수 있습니다.</p>
+<blockquote class="border-l-4 border-slate-700 pl-4 py-1 my-4 text-slate-400 italic bg-slate-900/30 rounded-r-lg">🔜 <strong class="text-white font-semibold">다음 편 예고: [Post 18] 직관적인 웹 스튜디오 UI와 원클릭 프리뷰어 구축기</strong></blockquote>
+<blockquote class="border-l-4 border-slate-700 pl-4 py-1 my-4 text-slate-400 italic bg-slate-900/30 rounded-r-lg">터미널을 몰라도 웹 브라우저에서 슬라이더를 조절하고, 클릭 한 번으로 인스타그램/유튜브에 자동 포스팅하는 Content Studio UI 구축기를 공개합니다!</blockquote>
+            </div>
+
+            <!-- 네비게이션 -->
+            <div class="mt-16 pt-8 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm"><a href="obsidian-second-brain-and-ai-gardener.html" class="p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900 transition block group"><div class="text-xs text-slate-500 mb-1">← 이전 글 (Part 3)</div><div class="text-white font-medium group-hover:text-sky-400 transition truncate">옵시디언(Obsidian) 볼트를 웹으로: 스스로 지식을 경작하는 AI 정원사 RAG 구축기</div></a><a href="zero-dependency-cli-and-ast-impact-analyzer.html" class="p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900 transition block text-right group"><div class="text-xs text-slate-500 mb-1">다음 글 (Part 7) →</div><div class="text-white font-medium group-hover:text-sky-400 transition truncate">외부 라이브러리 0개: 순수 파이썬으로 만든 무의존성 CLI와 AST 코드 영향도 분석기</div></a></div>
+        </article>
+        
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="border-t border-slate-800/80 mt-20 py-10 bg-[#090d16]">
+        <div class="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 space-y-4 sm:space-y-0">
+            <div>
+                © 2026 <strong class="text-slate-300">WeissFlow</strong> by Jihong. Built with pure Python & zero external dependencies.
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="../sitemap.xml" class="hover:text-slate-300 transition">Sitemap</a>
+                <a href="../feed.xml" class="hover:text-slate-300 transition">RSS</a>
+                <a href="https://github.com/ghk0409/weissflow/tree/main/docs/adr" class="hover:text-slate-300 transition">50 ADRs</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

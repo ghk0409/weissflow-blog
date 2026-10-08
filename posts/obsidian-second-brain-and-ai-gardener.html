@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>옵시디언(Obsidian) 볼트를 웹으로: 스스로 지식을 경작하는 AI 정원사 RAG 구축기 | WeissFlow Engineering Blog</title>
+    
+        <meta name="description" content="옵시디언(Obsidian)이나 노션(Notion)을 쓰는 분들이라면 겪어보셨을 익숙한 비극이 있습니다." />
+        <link rel="canonical" href="https://ghk0409.github.io/weissflow-blog/posts/obsidian-second-brain-and-ai-gardener.html" />
+        <meta property="og:title" content="옵시디언(Obsidian) 볼트를 웹으로: 스스로 지식을 경작하는 AI 정원사 RAG 구축기" />
+        <meta property="og:description" content="옵시디언(Obsidian)이나 노션(Notion)을 쓰는 분들이라면 겪어보셨을 익숙한 비극이 있습니다." />
+        <meta property="og:url" content="https://ghk0409.github.io/weissflow-blog/posts/obsidian-second-brain-and-ai-gardener.html" />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="옵시디언(Obsidian) 볼트를 웹으로: 스스로 지식을 경작하는 AI 정원사 RAG 구축기" />
+        <meta name="twitter:description" content="옵시디언(Obsidian)이나 노션(Notion)을 쓰는 분들이라면 겪어보셨을 익숙한 비극이 있습니다." />
+        
+    <link rel="alternate" type="application/rss+xml" title="WeissFlow Engineering Blog RSS Feed" href="../feed.xml" />
+    <!-- Tailwind Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#f0f9ff',
+                500: '#0284c7',
+                600: '#0369a1',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Prism Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+      });
+    </script>
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      pre code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    </style>
+</head>
+<body class="bg-[#0b0f19] text-slate-200 min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
+    <!-- 네비게이션 헤더 -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0b0f19]/80 border-b border-slate-800/80">
+        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="../index.html" class="flex items-center space-x-3 group">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
+                    <span class="text-white font-black text-lg">W</span>
+                </div>
+                <div>
+                    <span class="text-white font-bold tracking-tight text-lg">WeissFlow</span>
+                    <span class="text-sky-400 text-xs ml-1.5 px-1.5 py-0.5 rounded bg-sky-950 border border-sky-800/60 font-mono">Tech Blog</span>
+                </div>
+            </a>
+            <div class="flex items-center space-x-6 text-sm">
+                <a href="../index.html" class="hover:text-white transition text-slate-300">Articles</a>
+                <a href="../feed.xml" target="_blank" class="flex items-center space-x-1 text-amber-400 hover:text-amber-300 transition">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/></svg>
+                    <span>RSS</span>
+                </a>
+                <a href="https://github.com/ghk0409/weissflow" target="_blank" class="text-slate-400 hover:text-white transition">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 본문 컨테이너 -->
+    <main class="flex-1 max-w-4xl w-full mx-auto px-6 py-10">
+        
+        <article class="prose prose-invert max-w-none">
+            <!-- 글 헤더 -->
+            <header class="mb-10 pb-8 border-b border-slate-800/80">
+                <div class="flex items-center space-x-2 text-xs font-mono text-sky-400 mb-3">
+                    <span class="px-2 py-0.5 rounded bg-sky-950 border border-sky-800/60 font-semibold">PART 3</span>
+                    <span class="text-slate-500">•</span>
+                    <span>POST #08</span>
+                    <span class="text-slate-500">•</span>
+                    <span>2026-10-08</span>
+                    <span class="text-slate-500">•</span>
+                    <span>⏳ 7 min read</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight mb-4">옵시디언(Obsidian) 볼트를 웹으로: 스스로 지식을 경작하는 AI 정원사 RAG 구축기</h1>
+                <div class="flex flex-wrap items-center gap-2 mt-4">
+                    <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#Obsidian</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#SecondBrain</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#KnowledgeGarden</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#RAG</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#Gemini</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#Python</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#K3s</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#launchd</span>
+                    <span class="text-xs px-2 py-0.5 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/60 font-mono">ADR-0031</span> <span class="text-xs px-2 py-0.5 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/60 font-mono">ADR-0032</span> <span class="text-xs px-2 py-0.5 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/60 font-mono">ADR-0033</span> <span class="text-xs px-2 py-0.5 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/60 font-mono">ADR-0035</span> <span class="text-xs px-2 py-0.5 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/60 font-mono">ADR-0036</span> <span class="text-xs px-2 py-0.5 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/60 font-mono">ADR-0037</span>
+                </div>
+            </header>
+
+            <!-- 본문 -->
+            <div class="article-content leading-relaxed">
+                <h1 id="post-08-옵시디언-obsidian-볼트를-웹으로-스스로-지식을-경작하는-ai-정원사-rag-구축기" class="text-3xl font-extrabold text-white tracking-tight mt-12 mb-6 scroll-mt-24">[Post 08] 옵시디언(Obsidian) 볼트를 웹으로: 스스로 지식을 경작하는 AI 정원사 RAG 구축기</h1>
+<blockquote class="border-l-4 border-slate-700 pl-4 py-1 my-4 text-slate-400 italic bg-slate-900/30 rounded-r-lg"><strong class="text-white font-semibold">"노트를 작성할수록 지식의 정원이 풍요로워지는 것이 아니라, 잡초처럼 외톨이 노트들만 쌓여가고 있다면?"</strong></blockquote>
+<hr class="my-10 border-slate-800" />
+<h2 id="1-hook-pain-point-메모-앱의-공동묘지와-세컨드-브레인의-한계" class="text-2xl font-bold text-slate-100 mt-10 mb-4 pb-2 border-b border-slate-800/80 scroll-mt-24">1. Hook &amp; Pain Point: 메모 앱의 공동묘지와 세컨드 브레인의 한계</h2>
+<p class="my-4 leading-relaxed text-slate-300">옵시디언(Obsidian)이나 노션(Notion)을 쓰는 분들이라면 겪어보셨을 익숙한 비극이 있습니다.</p>
+<ul class="list-disc list-outside pl-6 my-4 space-y-2 text-slate-300">
+<li>아티클을 읽고 영감을 받아 새 노트를 만듭니다: <code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">2026-03-15-거시경제와-금리인하.md</code></li>
+<li>몇 줄의 생각과 하이라이트를 적어둡니다.</li>
+<li><strong class="text-white font-semibold">그리고 다시는 그 노트를 열어보지 않습니다.</strong></li>
+</ul>
+<p class="my-4 leading-relaxed text-slate-300">시간이 흐르면 볼트(Vault) 안에는 수백, 수천 개의 마크다운 파일이 쌓이지만, 서로 연결되지 못한 채 방치되는 <strong class="text-white font-semibold">'외톨이 노드(Orphan Node)'</strong>들의 무덤이 됩니다. 게다가 로컬 파일 기반의 옵시디언은 외부나 스마트폰, 태블릿 브라우저에서 가볍게 열람하기가 번거롭습니다.</p>
+<div class="code-block-wrap relative my-6 rounded-xl border border-slate-800 bg-slate-950/80 overflow-hidden shadow-2xl"><div class="flex items-center justify-between px-4 py-2 border-b border-slate-800/60 bg-slate-900/40 text-xs text-slate-400 font-mono"><span>code</span><button onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',2000)" class="hover:text-white transition">Copy</button></div><pre class="p-4 overflow-x-auto text-sm font-mono text-slate-200"><code class="language-text">[사용자의 실제 고민]
+1. 로컬 볼트 안의 지식을 어디서든 웹 브라우저로 빠르고 아름답게 탐색하고 싶다.
+2. 내가 일일이 [[위키링크]]를 걸어주지 않아도, AI가 맥락을 분석해 서로 관련된 노트를 알아서 이어줄 순 없을까?
+3. 내 수천 개 메모를 모두 기억하고 대답해 주는 전용 RAG 코파일럿을 둘 수는 없을까?</code></pre></div>
+<p class="my-4 leading-relaxed text-slate-300">이 질문들에 답하기 위해 WeissFlow는 <strong class="text-white font-semibold">"디지털 지식정원(Digital Knowledge Garden)"</strong>과 <strong class="text-white font-semibold">"자율 AI 정원사(Autonomous AI Gardener)"</strong> 시스템을 설계했습니다.</p>
+<hr class="my-10 border-slate-800" />
+<h2 id="2-architecture-지식의-성장-주기와-24-7-자동-경작-파이프라인" class="text-2xl font-bold text-slate-100 mt-10 mb-4 pb-2 border-b border-slate-800/80 scroll-mt-24">2. Architecture: 지식의 성장 주기와 24/7 자동 경작 파이프라인</h2>
+<p class="my-4 leading-relaxed text-slate-300">우리는 지식을 박물관의 박제된 유물이 아니라, <strong class="text-white font-semibold">'살아서 자라나는 식물'</strong>로 정의했습니다.</p>
+<h3 id="지식-성숙-3단계-라이프사이클-knowledge-maturity-model" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">지식 성숙 3단계 라이프사이클 (Knowledge Maturity Model)</h3>
+<ul class="list-disc list-outside pl-6 my-4 space-y-2 text-slate-300">
+<li>🌱 <strong class="text-white font-semibold">Seedling (씨앗 노트)</strong>: 갓 수집한 원시 아이디어, 스크랩, 찰나의 생각 (단편적 메모)</li>
+<li>🌿 <strong class="text-white font-semibold">Budding (새싹 노트)</strong>: 다른 생각들과 링크가 연결되고 맥락이 정리되기 시작한 메모</li>
+<li>🌳 <strong class="text-white font-semibold">Evergreen (상록수 노트)</strong>: 높은 연결성과 완결된 구조를 갖춘 영구적 지식 자산</li>
+</ul>
+<div class="mermaid-wrap my-8 p-4 bg-slate-900/60 rounded-xl border border-slate-800/80 overflow-x-auto"><pre class="mermaid text-center">flowchart TD
+    subgraph LocalEnv[&quot;로컬 작업 환경 (macOS)&quot;]
+        OBS[&quot;📱 Obsidian App\n(마크다운 볼트 편집)&quot;]
+        LAUNCHD[&quot;⏱️ launchd 백그라운드 데몬\n(15분 주기 자동 감지)&quot;]
+        GIT_SYNC[&quot;🔄 무충돌 Git Auto-Sync\n(git-sync.sh)&quot;]
+    end
+
+    subgraph RemoteCluster[&quot;홈 K3s 클러스터 / 서버&quot;]
+        REPO[(&quot;📦 Git Knowledge Remote&quot;)]
+        BUILDER[&quot;⚡ 무의존성 Static Generator\n(0.2초 초고속 HTML 빌드)&quot;]
+        WEB[&quot;🌐 지식정원 웹 서비스\n(Tailwind Dark + Graph View)&quot;]
+    end
+
+    subgraph AIGardener[&quot;스스로 일하는 AI 정원사 (AI Gardener)&quot;]
+        SCAN[&quot;🔍 외톨이 노드 &amp; 유사도 탐색기&quot;]
+        EMB[&quot;🧠 Gemini 임베딩 &amp; 벡터 매칭&quot;]
+        TEND[&quot;🌿 위키링크 자동 연결 (Auto-Tending)&quot;]
+        SYNTH[&quot;🌳 주간 상록수 종합 합성기 (Synthesizer)&quot;]
+        RAG[&quot;💬 옴니프레즌트 RAG 챗봇 (Web / CLI / Discord)&quot;]
+    end
+
+    OBS --&gt;|파일 저장| LAUNCHD
+    LAUNCHD --&gt; GIT_SYNC
+    GIT_SYNC --&gt;|Commit &amp; Push| REPO
+    REPO --&gt; BUILDER
+    BUILDER --&gt; WEB
+
+    REPO &lt;--&gt; SCAN
+    SCAN --&gt; EMB --&gt; TEND
+    TEND --&gt;|자동 위키링크 추가 PR/커밋| REPO
+    EMB --&gt; SYNTH --&gt;|상록수 노트 생성| REPO
+    WEB &amp; RAG &lt;--&gt; EMB
+
+    style LocalEnv fill:#0f172a,stroke:#38bdf8,color:#f8fafc
+    style AIGardener fill:#064e3b,stroke:#34d399,color:#f8fafc</pre></div>
+<hr class="my-10 border-slate-800" />
+<h2 id="3-deep-dive-핵심-구현-3요소" class="text-2xl font-bold text-slate-100 mt-10 mb-4 pb-2 border-b border-slate-800/80 scroll-mt-24">3. Deep Dive: 핵심 구현 3요소</h2>
+<h3 id="①-macos-launchd-기반-무중단-무충돌-git-동기화-adr-0033-file-users-jihong-jh-weissflow-docs-adr-0033-obsidian-vault-git-sync-and-launchd-daemon-md" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">① macOS launchd 기반 무중단·무충돌 Git 동기화 ([ADR 0033](file:///Users/jihong/jh/weissflow/docs/adr/0033-obsidian-vault-git-sync-and-launchd-daemon.md))</h3>
+<p class="my-4 leading-relaxed text-slate-300">타사 유료 Sync 플러그인 없이, macOS의 네이티브 데몬인 <code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">launchd</code>와 경량 쉘 스크립트로 15분 주기 자동 백업 및 원격 동기화를 구축했습니다.</p>
+<div class="code-block-wrap relative my-6 rounded-xl border border-slate-800 bg-slate-950/80 overflow-hidden shadow-2xl"><div class="flex items-center justify-between px-4 py-2 border-b border-slate-800/60 bg-slate-900/40 text-xs text-slate-400 font-mono"><span>bash</span><button onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',2000)" class="hover:text-white transition">Copy</button></div><pre class="p-4 overflow-x-auto text-sm font-mono text-slate-200"><code class="language-bash">#!/usr/bin/env bash
+# scripts/garden-git-sync.sh
+set -euo pipefail
+
+VAULT_DIR=&quot;$HOME/Documents/ObsidianVault&quot;
+cd &quot;$VAULT_DIR&quot;
+
+# 원격 변경사항 안전 병합 (Fast-Forward 우선)
+git fetch origin main --quiet
+LOCAL=$(git rev-parse HEAD)
+REMOTE=$(git rev-parse origin/main)
+
+if [ &quot;$LOCAL&quot; != &quot;$REMOTE&quot; ]; then
+    git merge origin/main --no-edit --quiet || {
+        echo &quot;[WARNING] Conflict detected. Stashing local changes.&quot;
+        git stash
+        git merge origin/main --no-edit
+        git stash pop || true
+    }
+fi
+
+# 로컬 변경사항이 있는 경우 원자적 커밋 &amp; 푸시
+if [[ -n $(git status -s) ]]; then
+    git add .
+    TIMESTAMP=$(date &quot;+%Y-%m-%d %H:%M:%S&quot;)
+    git commit -m &quot;garden: auto-sync update at ${TIMESTAMP} [skip ci]&quot; --quiet
+    git push origin main --quiet
+fi</code></pre></div>
+<h3 id="②-외톨이-노드를-연결하는-자동-경작-auto-tending-알고리즘-adr-0037-file-users-jihong-jh-weissflow-docs-adr-0037-digital-knowledge-garden-auto-tending-and-synthesizer-md" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">② 외톨이 노드를 연결하는 자동 경작(Auto-Tending) 알고리즘 ([ADR 0037](file:///Users/jihong/jh/weissflow/docs/adr/0037-digital-knowledge-garden-auto-tending-and-synthesizer.md))</h3>
+<p class="my-4 leading-relaxed text-slate-300">AI 정원사는 주기적으로 볼트 전체를 스캔하여 <strong class="text-white font-semibold">링크가 0~1개뿐인 고립된 노트</strong>를 찾아내고, 의미적 유사도(Semantic Similarity)가 높은 기존 상록수 노트를 찾아 마크다운 끝에 스마트 추천 링크를 삽입합니다.</p>
+<div class="code-block-wrap relative my-6 rounded-xl border border-slate-800 bg-slate-950/80 overflow-hidden shadow-2xl"><div class="flex items-center justify-between px-4 py-2 border-b border-slate-800/60 bg-slate-900/40 text-xs text-slate-400 font-mono"><span>python</span><button onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',2000)" class="hover:text-white transition">Copy</button></div><pre class="p-4 overflow-x-auto text-sm font-mono text-slate-200"><code class="language-python"># services/gardener/auto_tending.py
+import re
+from pathlib import Path
+from typing import List, Dict
+
+class KnowledgeGardenAutoTender:
+    &quot;&quot;&quot;고립된 노드를 찾아 의미적으로 유관한 상록수 노트와 결속시키는 정원사 엔진&quot;&quot;&quot;
+    
+    WIKILINK_PATTERN = re.compile(r&quot;\[\[(.*?)\]\]&quot;)
+
+    def __init__(self, vault_path: Path, similarity_threshold: float = 0.78):
+        self.vault_path = vault_path
+        self.similarity_threshold = similarity_threshold
+
+    def find_orphan_notes(self) -&gt; List[Path]:
+        orphans = []
+        for md_file in self.vault_path.glob(&quot;**/*.md&quot;):
+            content = md_file.read_text(encoding=&quot;utf-8&quot;)
+            links = self.WIKILINK_PATTERN.findall(content)
+            if len(links) &lt;= 1:  # 연결된 링크가 거의 없는 고립 노트
+                orphans.append(md_file)
+        return orphans
+
+    def graft_links(self, target_note: Path, recommended_links: List[str]):
+        &quot;&quot;&quot;노트 하단에 AI 경작 섹션을 안전하게 덧붙임 (Idempotent)&quot;&quot;&quot;
+        content = target_note.read_text(encoding=&quot;utf-8&quot;)
+        
+        if &quot;### 🌿 AI Gardener Connections&quot; in content:
+            return  # 이미 한 차례 경작된 노트는 중복 주입 방지
+            
+        graft_block = &quot;\n\n---\n### 🌿 AI Gardener Connections\n&quot;
+        graft_block += &quot;&gt; *이 노트는 다음 상록수 주제들과 밀접하게 연결되어 있습니다:*\n&quot;
+        for title in recommended_links:
+            graft_block += f&quot;- [[{title}]]\n&quot;
+            
+        target_note.write_text(content + graft_block, encoding=&quot;utf-8&quot;)</code></pre></div>
+<h3 id="③-3단계-llm-캐스케이드-rag-엔진-adr-0036-file-users-jihong-jh-weissflow-docs-adr-0036-omnipresent-ai-gardener-terminal-cli-and-discord-rag-md" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">③ 3단계 LLM 캐스케이드 RAG 엔진 ([ADR 0036](file:///Users/jihong/jh/weissflow/docs/adr/0036-omnipresent-ai-gardener-terminal-cli-and-discord-rag.md))</h3>
+<p class="my-4 leading-relaxed text-slate-300">사용자가 터미널 CLI(<code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">wf ask &quot;지난달 분할 매수한 종목이 뭐였지?&quot;</code>)나 디스코드(<code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">/질문</code>), 또는 웹 브라우저 플로팅 챗봇에서 질문하면 0.5초 만에 개인 볼트를 뒤져 답변합니다.</p>
+<ul class="list-disc list-outside pl-6 my-4 space-y-2 text-slate-300">
+<li><strong class="text-white font-semibold">1차 시도 (Tier 1)</strong>: Gemini 2.5 Flash (초고속, 제로 레이턴시)</li>
+<li><strong class="text-white font-semibold">2차 시도 (Tier 2)</strong>: Gemini 2.0 Flash (폴백)</li>
+<li><strong class="text-white font-semibold">3차 시도 (Tier 3)</strong>: Gemini 1.5 Flash (최종 안정망)</li>
+<li><strong class="text-white font-semibold">엄격한 원칙</strong>: 환각(Hallucination) 방지를 위해 <strong class="text-white font-semibold">"반드시 참조한 노트 파일명과 발췌 문장을 각주로 달 것"</strong>을 시스템 프롬프트로 강제.</li>
+</ul>
+<hr class="my-10 border-slate-800" />
+<h2 id="4-troubles-lessons-ai가-지식-정원을-망치지-않게-하는-법" class="text-2xl font-bold text-slate-100 mt-10 mb-4 pb-2 border-b border-slate-800/80 scroll-mt-24">4. Troubles &amp; Lessons: AI가 지식 정원을 망치지 않게 하는 법</h2>
+<h3 id="트러블슈팅-1-ai-정원사가-엉뚱한-링크를-남발해-정원이-쓰레기통이-되다" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">트러블슈팅 1: &quot;AI 정원사가 엉뚱한 링크를 남발해 정원이 쓰레기통이 되다&quot;</h3>
+<p class="my-4 leading-relaxed text-slate-300">초기 프로토타입에서는 LLM에게 단순 프롬프트로 "관련된 링크를 달아줘"라고 맡겼더니, 모든 노트에 <code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">[[생각]]</code>, <code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">[[개발]]</code>, <code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">[[공부]]</code> 같은 뻔하고 모호한 태그성 링크를 수십 개씩 달아버렸습니다. 지식 그래프가 하나의 거대한 거미줄 뭉치로 오염되었습니다.</p>
+<p class="my-4 leading-relaxed text-slate-300"><strong class="text-white font-semibold">해결책</strong>:</p>
+<p class="my-4 leading-relaxed text-slate-300">1. <strong class="text-white font-semibold">역인용 빈도(IDF) 페널티</strong>: 너무 광범위하고 자주 등장하는 범용 키워드는 링크 추천 후보에서 강제 배제.</p>
+<p class="my-4 leading-relaxed text-slate-300">2. <strong class="text-white font-semibold">최소 유사도 임계치(0.78 이상) 강제</strong>: 모호하게 관련된 노트는 연결하지 않고 여전히 Seedling 단계로 남겨둠.</p>
+<p class="my-4 leading-relaxed text-slate-300">3. <strong class="text-white font-semibold">분리된 섹션 규격</strong>: 본문 문장 사이에 임의로 위키링크를 끼워 넣지 않고, 반드시 파일 최하단 <code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">### 🌿 AI Gardener Connections</code> 규격화된 블록에만 링크를 모아서 기재.</p>
+<h3 id="트러블슈팅-2-git-머지-충돌-merge-conflict-의-공포" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">트러블슈팅 2: Git 머지 충돌(Merge Conflict)의 공포</h3>
+<p class="my-4 leading-relaxed text-slate-300">내가 밖에서 스마트폰으로 마크다운 파일을 수정하는 도중, 로컬의 백그라운드 데몬이 커밋을 치면 충돌이 발생할 수 있습니다.  </p>
+<p class="my-4 leading-relaxed text-slate-300">우리는 <code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">git stash</code> -> <code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">git pull --rebase</code> -> <code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">git stash pop</code> 파이프라인을 쉘 스크립트에 견고하게 작성하여, 지난 수개월간 단 한 번의 파일 유실 없이 24시간 양방향 동기화를 유지하고 있습니다.</p>
+<hr class="my-10 border-slate-800" />
+<h2 id="5-takeaways-next-steps" class="text-2xl font-bold text-slate-100 mt-10 mb-4 pb-2 border-b border-slate-800/80 scroll-mt-24">5. Takeaways &amp; Next Steps</h2>
+<p class="my-4 leading-relaxed text-slate-300">1. <strong class="text-white font-semibold">지식 관리는 '저장'이 아니라 '연결'입니다.</strong> 메모를 아무리 많이 모아도 그것들이 서로 대화하지 못하면 뇌의 인지 부하만 늘어납니다.</p>
+<p class="my-4 leading-relaxed text-slate-300">2. <strong class="text-white font-semibold">AI를 '지식의 정원사'로 고용하세요.</strong> 새로운 글을 쓸 때마다 이전의 기록들을 찾아 헤매지 않아도, AI가 밤새 내 볼트를 순회하며 오래된 노트와 새 노트를 이어줍니다.</p>
+<p class="my-4 leading-relaxed text-slate-300">3. <strong class="text-white font-semibold">무의존성 웹 지식정원으로 확장하세요.</strong> 무거운 상용 플랫폼에 갇히지 않고 나만의 K3s 클러스터나 가벼운 정적 웹으로 호스팅할 때, 세컨드 브레인은 진정한 내 자산이 됩니다.</p>
+<blockquote class="border-l-4 border-slate-700 pl-4 py-1 my-4 text-slate-400 italic bg-slate-900/30 rounded-r-lg">🔜 <strong class="text-white font-semibold">다음 편 예고: [Post 09] 옴니프레즌트 AI 정원사: 터미널 CLI와 디스코드 봇으로 내 뇌와 대화하기</strong></blockquote>
+<blockquote class="border-l-4 border-slate-700 pl-4 py-1 my-4 text-slate-400 italic bg-slate-900/30 rounded-r-lg">어디서든 <code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">wf ask</code> 한 줄로 내 뇌 속 모든 지식을 소환하는 CLI 및 Discord 봇 통합 아키텍처를 소개합니다!</blockquote>
+            </div>
+
+            <!-- 네비게이션 -->
+            <div class="mt-16 pt-8 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm"><a href="pivot-from-trading-bot-to-ai-copilot.html" class="p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900 transition block group"><div class="text-xs text-slate-500 mb-1">← 이전 글 (Part 1)</div><div class="text-white font-medium group-hover:text-sky-400 transition truncate">위험천만한 자동매매 봇을 버리고, 24/7 AI 금융 비서로 피벗한 이유</div></a><a href="zero-cost-ai-shortform-video-automation.html" class="p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900 transition block text-right group"><div class="text-xs text-slate-500 mb-1">다음 글 (Part 6) →</div><div class="text-white font-medium group-hover:text-sky-400 transition truncate">비용 0원으로 구축한 완전 자율 AI 숏폼 콘텐츠 스튜디오: 릴스와 쇼츠 자동화 일대기</div></a></div>
+        </article>
+        
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="border-t border-slate-800/80 mt-20 py-10 bg-[#090d16]">
+        <div class="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 space-y-4 sm:space-y-0">
+            <div>
+                © 2026 <strong class="text-slate-300">WeissFlow</strong> by Jihong. Built with pure Python & zero external dependencies.
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="../sitemap.xml" class="hover:text-slate-300 transition">Sitemap</a>
+                <a href="../feed.xml" class="hover:text-slate-300 transition">RSS</a>
+                <a href="https://github.com/ghk0409/weissflow/tree/main/docs/adr" class="hover:text-slate-300 transition">50 ADRs</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

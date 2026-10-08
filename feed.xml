@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <rss version="2.0">
+    <channel>
+        <title>WeissFlow Engineering Blog</title>
+        <link>https://ghk0409.github.io/weissflow-blog</link>
+        <description>혼자서 구축한 1인 풀스택 자율 AI OS: WeissFlow 개발 일대기 (From Zero to 50 ADRs)</description>
+        <language>ko</language>
+        
+        <item>
+            <title>위험천만한 자동매매 봇을 버리고, 24/7 AI 금융 비서로 피벗한 이유</title>
+            <link>https://ghk0409.github.io/weissflow-blog/posts/pivot-from-trading-bot-to-ai-copilot.html</link>
+            <guid>https://ghk0409.github.io/weissflow-blog/posts/pivot-from-trading-bot-to-ai-copilot.html</guid>
+            <description>개발자라면 누구나 한 번쯤 꿈꿉니다.</description>
+            <pubDate>2026-10-08 00:00:00 +0000</pubDate>
+        </item>
+        
+        <item>
+            <title>옵시디언(Obsidian) 볼트를 웹으로: 스스로 지식을 경작하는 AI 정원사 RAG 구축기</title>
+            <link>https://ghk0409.github.io/weissflow-blog/posts/obsidian-second-brain-and-ai-gardener.html</link>
+            <guid>https://ghk0409.github.io/weissflow-blog/posts/obsidian-second-brain-and-ai-gardener.html</guid>
+            <description>옵시디언(Obsidian)이나 노션(Notion)을 쓰는 분들이라면 겪어보셨을 익숙한 비극이 있습니다.</description>
+            <pubDate>2026-10-08 00:00:00 +0000</pubDate>
+        </item>
+        
+        <item>
+            <title>비용 0원으로 구축한 완전 자율 AI 숏폼 콘텐츠 스튜디오: 릴스와 쇼츠 자동화 일대기</title>
+            <link>https://ghk0409.github.io/weissflow-blog/posts/zero-cost-ai-shortform-video-automation.html</link>
+            <guid>https://ghk0409.github.io/weissflow-blog/posts/zero-cost-ai-shortform-video-automation.html</guid>
+            <description>유튜브 쇼츠, 인스타그램 릴스, 틱톡 알고리즘은 잔인할 정도로 단순합니다.</description>
+            <pubDate>2026-10-08 00:00:00 +0000</pubDate>
+        </item>
+        
+        <item>
+            <title>외부 라이브러리 0개: 순수 파이썬으로 만든 무의존성 CLI와 AST 코드 영향도 분석기</title>
+            <link>https://ghk0409.github.io/weissflow-blog/posts/zero-dependency-cli-and-ast-impact-analyzer.html</link>
+            <guid>https://ghk0409.github.io/weissflow-blog/posts/zero-dependency-cli-and-ast-impact-analyzer.html</guid>
+            <description>프로젝트 규모가 커지고 18개의 마이크로서비스가 생기면서 일상적인 개발 루틴에 병목이 생기기 시작했습니다.</description>
+            <pubDate>2026-10-08 00:00:00 +0000</pubDate>
+        </item>
+        
+        <item>
+            <title>5,000줄 모놀리식 봇에서 8개 마이크로 Cogs &amp; 통합 이벤트 버스로의 대전환</title>
+            <link>https://ghk0409.github.io/weissflow-blog/posts/discord-cog-refactoring-and-unified-event-bus.html</link>
+            <guid>https://ghk0409.github.io/weissflow-blog/posts/discord-cog-refactoring-and-unified-event-bus.html</guid>
+            <description>WeissFlow가 성장하면서 디스코드 봇은 모든 마이크로서비스의 &#x27;총괄 사령탑&#x27; 역할을 맡게 되었습니다.</description>
+            <pubDate>2026-10-08 00:00:00 +0000</pubDate>
+        </item>
+        
+    </channel>
+    </rss>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | WeissFlow Engineering Blog</title>
+    
+    <meta name="description" content="혼자서 구축한 1인 풀스택 자율 AI OS: WeissFlow 개발 일대기 (From Zero to 50 ADRs)" />
+    <link rel="canonical" href="https://ghk0409.github.io/weissflow-blog/index.html" />
+    <meta property="og:title" content="WeissFlow Engineering Blog" />
+    <meta property="og:description" content="혼자서 구축한 1인 풀스택 자율 AI OS: WeissFlow 개발 일대기 (From Zero to 50 ADRs)" />
+    <meta property="og:url" content="https://ghk0409.github.io/weissflow-blog/index.html" />
+    <meta property="og:type" content="website" />
+    
+    <link rel="alternate" type="application/rss+xml" title="WeissFlow Engineering Blog RSS Feed" href="./feed.xml" />
+    <!-- Tailwind Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#f0f9ff',
+                500: '#0284c7',
+                600: '#0369a1',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Prism Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+      });
+    </script>
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      pre code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    </style>
+</head>
+<body class="bg-[#0b0f19] text-slate-200 min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
+    <!-- 네비게이션 헤더 -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0b0f19]/80 border-b border-slate-800/80">
+        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="./index.html" class="flex items-center space-x-3 group">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
+                    <span class="text-white font-black text-lg">W</span>
+                </div>
+                <div>
+                    <span class="text-white font-bold tracking-tight text-lg">WeissFlow</span>
+                    <span class="text-sky-400 text-xs ml-1.5 px-1.5 py-0.5 rounded bg-sky-950 border border-sky-800/60 font-mono">Tech Blog</span>
+                </div>
+            </a>
+            <div class="flex items-center space-x-6 text-sm">
+                <a href="./index.html" class="hover:text-white transition text-slate-300">Articles</a>
+                <a href="./feed.xml" target="_blank" class="flex items-center space-x-1 text-amber-400 hover:text-amber-300 transition">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/></svg>
+                    <span>RSS</span>
+                </a>
+                <a href="https://github.com/ghk0409/weissflow" target="_blank" class="text-slate-400 hover:text-white transition">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 본문 컨테이너 -->
+    <main class="flex-1 max-w-4xl w-full mx-auto px-6 py-10">
+        
+    <div class="space-y-12">
+        <!-- 히어로 배너 -->
+        <section class="py-8 sm:py-12 border-b border-slate-800/80">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-sky-950/80 border border-sky-800/60 text-sky-300 text-xs font-mono mb-4">
+                <span>🚀 50 ADRs Full-Stack AI OS Development Odyssey</span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+                혼자서 구축한 1인 풀스택 자율 AI OS
+            </h1>
+            <p class="mt-4 text-base sm:text-lg text-slate-400 leading-relaxed max-w-2xl">
+                위험천만한 자동매매 봇에서 시작하여 24/7 AI 코파일럿, 옵시디언 지식정원, ThinkTank 멀티에이전트, 비용 0원 AI 숏폼 스튜디오까지 — 50개 아키텍처 결정(ADR)을 거친 실전 개발기입니다.
+            </p>
+            <div class="mt-6 flex items-center space-x-4 text-sm font-mono text-slate-400">
+                <div>📚 연재 편수: <strong class="text-white">5편</strong></div>
+                <div>•</div>
+                <div>⚡ 무의존성 정적 빌드: <strong class="text-emerald-400">0.05s</strong></div>
+            </div>
+        </section>
+
+        <!-- 포스트 리스트 -->
+        <section class="space-y-4">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-bold text-slate-200">Featured Articles</h3>
+                <span class="text-xs text-slate-500">최신 연재순</span>
+            </div>
+            <div class="grid grid-cols-1 gap-5">
+                
+        <a href="posts/pivot-from-trading-bot-to-ai-copilot.html" class="block p-6 rounded-2xl border border-slate-800/80 bg-slate-900/30 hover:bg-slate-900/80 hover:border-sky-500/50 transition-all duration-200 group shadow-lg shadow-black/40">
+            <div class="flex items-center justify-between text-xs font-mono text-slate-500 mb-2">
+                <span class="text-sky-400 font-semibold">PART 1 • POST #01</span>
+                <span>2026-10-08 · ⏳ 10분</span>
+            </div>
+            <h2 class="text-xl font-bold text-white group-hover:text-sky-300 transition line-clamp-2 mb-2">위험천만한 자동매매 봇을 버리고, 24/7 AI 금융 비서로 피벗한 이유</h2>
+            <p class="text-sm text-slate-400 line-clamp-2 leading-relaxed mb-4">개발자라면 누구나 한 번쯤 꿈꿉니다.</p>
+            <div class="flex items-center space-x-2">
+                <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-sky-400 font-mono">#AI</span><span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-sky-400 font-mono">#Fintech</span><span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-sky-400 font-mono">#Architecture</span>
+            </div>
+        </a>
+        
+        <a href="posts/obsidian-second-brain-and-ai-gardener.html" class="block p-6 rounded-2xl border border-slate-800/80 bg-slate-900/30 hover:bg-slate-900/80 hover:border-sky-500/50 transition-all duration-200 group shadow-lg shadow-black/40">
+            <div class="flex items-center justify-between text-xs font-mono text-slate-500 mb-2">
+                <span class="text-sky-400 font-semibold">PART 3 • POST #08</span>
+                <span>2026-10-08 · ⏳ 7분</span>
+            </div>
+            <h2 class="text-xl font-bold text-white group-hover:text-sky-300 transition line-clamp-2 mb-2">옵시디언(Obsidian) 볼트를 웹으로: 스스로 지식을 경작하는 AI 정원사 RAG 구축기</h2>
+            <p class="text-sm text-slate-400 line-clamp-2 leading-relaxed mb-4">옵시디언(Obsidian)이나 노션(Notion)을 쓰는 분들이라면 겪어보셨을 익숙한 비극이 있습니다.</p>
+            <div class="flex items-center space-x-2">
+                <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-sky-400 font-mono">#Obsidian</span><span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-sky-400 font-mono">#SecondBrain</span><span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-sky-400 font-mono">#KnowledgeGarden</span>
+            </div>
+        </a>
+        
+        <a href="posts/zero-cost-ai-shortform-video-automation.html" class="block p-6 rounded-2xl border border-slate-800/80 bg-slate-900/30 hover:bg-slate-900/80 hover:border-sky-500/50 transition-all duration-200 group shadow-lg shadow-black/40">
+            <div class="flex items-center justify-between text-xs font-mono text-slate-500 mb-2">
+                <span class="text-sky-400 font-semibold">PART 6 • POST #17</span>
+                <span>2026-10-08 · ⏳ 8분</span>
+            </div>
+            <h2 class="text-xl font-bold text-white group-hover:text-sky-300 transition line-clamp-2 mb-2">비용 0원으로 구축한 완전 자율 AI 숏폼 콘텐츠 스튜디오: 릴스와 쇼츠 자동화 일대기</h2>
+            <p class="text-sm text-slate-400 line-clamp-2 leading-relaxed mb-4">유튜브 쇼츠, 인스타그램 릴스, 틱톡 알고리즘은 잔인할 정도로 단순합니다.</p>
+            <div class="flex items-center space-x-2">
+                <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-sky-400 font-mono">#AI</span><span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-sky-400 font-mono">#VideoAI</span><span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-sky-400 font-mono">#Shortform</span>
+            </div>
+        </a>
+        
+        <a href="posts/zero-dependency-cli-and-ast-impact-analyzer.html" class="block p-6 rounded-2xl border border-slate-800/80 bg-slate-900/30 hover:bg-slate-900/80 hover:border-sky-500/50 transition-all duration-200 group shadow-lg shadow-black/40">
+            <div class="flex items-center justify-between text-xs font-mono text-slate-500 mb-2">
+                <span class="text-sky-400 font-semibold">PART 7 • POST #20</span>
+                <span>2026-10-08 · ⏳ 6분</span>
+            </div>
+            <h2 class="text-xl font-bold text-white group-hover:text-sky-300 transition line-clamp-2 mb-2">외부 라이브러리 0개: 순수 파이썬으로 만든 무의존성 CLI와 AST 코드 영향도 분석기</h2>
+            <p class="text-sm text-slate-400 line-clamp-2 leading-relaxed mb-4">프로젝트 규모가 커지고 18개의 마이크로서비스가 생기면서 일상적인 개발 루틴에 병목이 생기기 시작했습니다.</p>
+            <div class="flex items-center space-x-2">
+                <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-sky-400 font-mono">#Python</span><span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-sky-400 font-mono">#CLI</span><span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-sky-400 font-mono">#AST</span>
+            </div>
+        </a>
+        
+        <a href="posts/discord-cog-refactoring-and-unified-event-bus.html" class="block p-6 rounded-2xl border border-slate-800/80 bg-slate-900/30 hover:bg-slate-900/80 hover:border-sky-500/50 transition-all duration-200 group shadow-lg shadow-black/40">
+            <div class="flex items-center justify-between text-xs font-mono text-slate-500 mb-2">
+                <span class="text-sky-400 font-semibold">PART 7 • POST #21</span>
+                <span>2026-10-08 · ⏳ 6분</span>
+            </div>
+            <h2 class="text-xl font-bold text-white group-hover:text-sky-300 transition line-clamp-2 mb-2">5,000줄 모놀리식 봇에서 8개 마이크로 Cogs &amp; 통합 이벤트 버스로의 대전환</h2>
+            <p class="text-sm text-slate-400 line-clamp-2 leading-relaxed mb-4">WeissFlow가 성장하면서 디스코드 봇은 모든 마이크로서비스의 &#x27;총괄 사령탑&#x27; 역할을 맡게 되었습니다.</p>
+            <div class="flex items-center space-x-2">
+                <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-sky-400 font-mono">#Discord</span><span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-sky-400 font-mono">#Python</span><span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-sky-400 font-mono">#Refactoring</span>
+            </div>
+        </a>
+        
+            </div>
+        </section>
+    </div>
+    
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="border-t border-slate-800/80 mt-20 py-10 bg-[#090d16]">
+        <div class="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 space-y-4 sm:space-y-0">
+            <div>
+                © 2026 <strong class="text-slate-300">WeissFlow</strong> by Jihong. Built with pure Python & zero external dependencies.
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="./sitemap.xml" class="hover:text-slate-300 transition">Sitemap</a>
+                <a href="./feed.xml" class="hover:text-slate-300 transition">RSS</a>
+                <a href="https://github.com/ghk0409/weissflow/tree/main/docs/adr" class="hover:text-slate-300 transition">50 ADRs</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

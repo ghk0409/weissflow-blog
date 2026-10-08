@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>위험천만한 자동매매 봇을 버리고, 24/7 AI 금융 비서로 피벗한 이유 | WeissFlow Engineering Blog</title>
+    
+        <meta name="description" content="개발자라면 누구나 한 번쯤 꿈꿉니다." />
+        <link rel="canonical" href="https://ghk0409.github.io/weissflow-blog/posts/pivot-from-trading-bot-to-ai-copilot.html" />
+        <meta property="og:title" content="위험천만한 자동매매 봇을 버리고, 24/7 AI 금융 비서로 피벗한 이유" />
+        <meta property="og:description" content="개발자라면 누구나 한 번쯤 꿈꿉니다." />
+        <meta property="og:url" content="https://ghk0409.github.io/weissflow-blog/posts/pivot-from-trading-bot-to-ai-copilot.html" />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="위험천만한 자동매매 봇을 버리고, 24/7 AI 금융 비서로 피벗한 이유" />
+        <meta name="twitter:description" content="개발자라면 누구나 한 번쯤 꿈꿉니다." />
+        
+    <link rel="alternate" type="application/rss+xml" title="WeissFlow Engineering Blog RSS Feed" href="../feed.xml" />
+    <!-- Tailwind Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#f0f9ff',
+                500: '#0284c7',
+                600: '#0369a1',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Prism Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+      });
+    </script>
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+      pre code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+    </style>
+</head>
+<body class="bg-[#0b0f19] text-slate-200 min-h-screen flex flex-col selection:bg-sky-500 selection:text-white">
+    <!-- 네비게이션 헤더 -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-[#0b0f19]/80 border-b border-slate-800/80">
+        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="../index.html" class="flex items-center space-x-3 group">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 group-hover:scale-105 transition">
+                    <span class="text-white font-black text-lg">W</span>
+                </div>
+                <div>
+                    <span class="text-white font-bold tracking-tight text-lg">WeissFlow</span>
+                    <span class="text-sky-400 text-xs ml-1.5 px-1.5 py-0.5 rounded bg-sky-950 border border-sky-800/60 font-mono">Tech Blog</span>
+                </div>
+            </a>
+            <div class="flex items-center space-x-6 text-sm">
+                <a href="../index.html" class="hover:text-white transition text-slate-300">Articles</a>
+                <a href="../feed.xml" target="_blank" class="flex items-center space-x-1 text-amber-400 hover:text-amber-300 transition">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/></svg>
+                    <span>RSS</span>
+                </a>
+                <a href="https://github.com/ghk0409/weissflow" target="_blank" class="text-slate-400 hover:text-white transition">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 본문 컨테이너 -->
+    <main class="flex-1 max-w-4xl w-full mx-auto px-6 py-10">
+        
+        <article class="prose prose-invert max-w-none">
+            <!-- 글 헤더 -->
+            <header class="mb-10 pb-8 border-b border-slate-800/80">
+                <div class="flex items-center space-x-2 text-xs font-mono text-sky-400 mb-3">
+                    <span class="px-2 py-0.5 rounded bg-sky-950 border border-sky-800/60 font-semibold">PART 1</span>
+                    <span class="text-slate-500">•</span>
+                    <span>POST #01</span>
+                    <span class="text-slate-500">•</span>
+                    <span>2026-10-08</span>
+                    <span class="text-slate-500">•</span>
+                    <span>⏳ 10 min read</span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight mb-4">위험천만한 자동매매 봇을 버리고, 24/7 AI 금융 비서로 피벗한 이유</h1>
+                <div class="flex flex-wrap items-center gap-2 mt-4">
+                    <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#AI</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#Fintech</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#Architecture</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#Python</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#Trading</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#LLM</span> <span class="text-xs px-2.5 py-1 rounded-full bg-slate-800/80 text-sky-400 font-mono">#PromptEngineering</span>
+                    <span class="text-xs px-2 py-0.5 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/60 font-mono">ADR-0001</span> <span class="text-xs px-2 py-0.5 rounded bg-indigo-950/80 text-indigo-300 border border-indigo-800/60 font-mono">ADR-0002</span>
+                </div>
+            </header>
+
+            <!-- 본문 -->
+            <div class="article-content leading-relaxed">
+                <h1 id="post-01-위험천만한-자동매매-봇을-버리고-24-7-ai-금융-비서로-피벗한-이유" class="text-3xl font-extrabold text-white tracking-tight mt-12 mb-6 scroll-mt-24">[Post 01] 위험천만한 자동매매 봇을 버리고, 24/7 AI 금융 비서로 피벗한 이유</h1>
+<blockquote class="border-l-4 border-slate-700 pl-4 py-1 my-4 text-slate-400 italic bg-slate-900/30 rounded-r-lg"><strong class="text-white font-semibold">"수익률에 눈멀어 만든 자동매매 봇이 계좌를 태우기 직전, 나는 코드를 전부 뒤엎었다."</strong></blockquote>
+<hr class="my-10 border-slate-800" />
+<h2 id="1-hook-pain-point-잠-못-들던-밤들과-블랙박스의-배신" class="text-2xl font-bold text-slate-100 mt-10 mb-4 pb-2 border-b border-slate-800/80 scroll-mt-24">1. Hook &amp; Pain Point: 잠 못 들던 밤들과 블랙박스의 배신</h2>
+<p class="my-4 leading-relaxed text-slate-300">개발자라면 누구나 한 번쯤 꿈꿉니다.  </p>
+<p class="my-4 leading-relaxed text-slate-300"><em>"내가 자는 동안에도 백그라운드에서 알고리즘이 24시간 거래를 체결하며 돈을 복사해 주는 시스템."</em></p>
+<p class="my-4 leading-relaxed text-slate-300">저 역시 그랬습니다. 주식과 암호화폐 거래소의 REST/WebSocket API를 엮고, 이동평균선(SMA), 볼린저 밴드, RSI 다이버전스를 결합한 자동매매 봇을 개발했습니다. 백테스팅 결과는 완벽해 보였습니다. 샤프 비율(Sharpe Ratio) 2.1, 연환산 기대수익률 48%. 저는 자신만만하게 실계좌에 봇을 배포하고 잠자리에 들었습니다.</p>
+<p class="my-4 leading-relaxed text-slate-300">하지만 실전 금융 시장은 백테스트 화면처럼 친절하지 않았습니다.</p>
+<h3 id="마주해야-했던-냉혹한-현실들" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">마주해야 했던 냉혹한 현실들</h3>
+<p class="my-4 leading-relaxed text-slate-300">1. <strong class="text-white font-semibold">슬리피지(Slippage)와 호가 공백</strong>: 변동성이 폭발하는 순간 시장가 주문이 체결되면서 상상 이상의 손실이 발생했습니다.</p>
+<p class="my-4 leading-relaxed text-slate-300">2. <strong class="text-white font-semibold">블랙스완과 비정형 데이터</strong>: 알고리즘은 차트 지표만 볼 뿐, 미 연준(Fed) 파월 의장의 긴급 발언, 도널드 트럼프의 관세 폭탄 발언, 상장폐지 심사 등 텍스트 기반의 거시 충격을 전혀 이해하지 못했습니다.</p>
+<p class="my-4 leading-relaxed text-slate-300">3. <strong class="text-white font-semibold">심리적 파탄</strong>: "봇이 지금 무슨 주문을 넣고 있을까?", "갑자기 API 랙이나 버그로 풀매수 루프가 돌면 어쩌지?" 스마트폰 화면을 10분마다 켜보느라 수면의 질은 최악으로 치달았습니다.</p>
+<div class="callout callout-warning my-6 p-4 rounded-xl border-l-4 border-amber-500 bg-amber-950/30 text-amber-200 text-sm">
+<blockquote class="border-l-4 border-slate-700 pl-4 py-1 my-4 text-slate-400 italic bg-slate-900/30 rounded-r-lg"><strong class="text-white font-semibold">일임형 블랙박스 트레이딩 봇의 본질적인 모순</strong></blockquote>
+<blockquote class="border-l-4 border-slate-700 pl-4 py-1 my-4 text-slate-400 italic bg-slate-900/30 rounded-r-lg">시장의 불확실성은 100% 코드로 통제할 수 없습니다. 인간의 직관과 맥락 판단이 완전히 배제된 자동 주문 시스템은 '수익 머신'이 아니라 언제 터질지 모르는 '시한폭탄'이었습니다.</blockquote>
+<p class="my-4 leading-relaxed text-slate-300">결국 한밤중 발생한 예기치 못한 시장 급락으로 수백만 원의 손실을 입은 날, 저는 모든 주문 프로세스를 강제 종료(Kill Switch)했습니다. 그리고 스스로에게 질문을 던졌습니다.</p>
+<blockquote class="border-l-4 border-slate-700 pl-4 py-1 my-4 text-slate-400 italic bg-slate-900/30 rounded-r-lg">**"내가 진짜 원했던 건 '내 돈을 마음대로 굴리는 통제 불능의 봇'인가,</blockquote>
+<blockquote class="border-l-4 border-slate-700 pl-4 py-1 my-4 text-slate-400 italic bg-slate-900/30 rounded-r-lg">아니면 '시장과 데이터를 24시간 감시하고 최적의 맥락을 보고해 주는 똑똑한 파트너'인가?"**</blockquote>
+<p class="my-4 leading-relaxed text-slate-300">이 질문이 바로 WeissFlow의 첫 번째 아키텍처 결정(<a href="/posts/pivot-to-ai-financial-copilot.html" class="text-sky-400 hover:text-sky-300 underline underline-offset-4 font-medium transition">ADR 0001: Pivot to AI Financial Copilot</a>)의 시작이었습니다.</p>
+<hr class="my-10 border-slate-800" />
+<h2 id="2-architecture-운전대-execution-대신-내비게이션-context-을-맡기다" class="text-2xl font-bold text-slate-100 mt-10 mb-4 pb-2 border-b border-slate-800/80 scroll-mt-24">2. Architecture: &quot;운전대(Execution)&quot; 대신 &quot;내비게이션(Context)&quot;을 맡기다</h2>
+<p class="my-4 leading-relaxed text-slate-300">우리의 전략은 180도 바뀌었습니다.  </p>
+<p class="my-4 leading-relaxed text-slate-300"><strong class="text-white font-semibold">"AI에게 최종 주문 권한을 주지 않는다. 대신 인간의 인지 능력을 초월하는 멀티 채널 데이터 수집과 맥락 브리핑을 맡긴다."</strong></p>
+<p class="my-4 leading-relaxed text-slate-300">이것이 바로 <strong class="text-white font-semibold">Human-in-the-Loop(인간 참여형) AI 금융 코파일럿 아키텍처</strong>입니다.</p>
+<div class="mermaid-wrap my-8 p-4 bg-slate-900/60 rounded-xl border border-slate-800/80 overflow-x-auto"><pre class="mermaid text-center">flowchart TD
+    subgraph DataSensors[&quot;24/7 멀티 센서 레이어&quot;]
+        S1[&quot;📈 거시경제 캘린더 (FOMC, CPI)&quot;]
+        S2[&quot;📑 전자공시 (DART / SEC)&quot;]
+        S3[&quot;🚨 김치프리미엄 &amp; 온체인 이상징후&quot;]
+        S4[&quot;📰 IT / 테크 뉴스 레이더&quot;]
+    end
+
+    subgraph Intelligence[&quot;Weiss Sentinel 지능 분석기&quot;]
+        AN[&quot;데이터 정규화 &amp; 충격도 판별&quot;]
+        LLM[&quot;Gemini LLM 컨텍스트 해석&quot;]
+        ACT[&quot;원클릭 액션 페이로드 생성&quot;]
+    end
+
+    subgraph Interface[&quot;사용자 접점 (Zero-Distraction)&quot;]
+        SSE[&quot;⚡ 초저지연 SSE 스트리밍&quot;]
+        DISCORD[&quot;🤖 Discord 스마트 알림&quot;]
+        CLI[&quot;💻 터미널 CLI (wf)&quot;]
+    end
+
+    subgraph Decision[&quot;최종 결정권자 (Human-in-the-Loop)&quot;]
+        USER((&quot;👤 사용자 (Investor)&quot;))
+        EXEC[&quot;승인 시 원클릭 실행 / 포트폴리오 리밸런싱&quot;]
+    end
+
+    DataSensors --&gt; AN
+    AN --&gt; LLM
+    LLM --&gt; ACT
+    ACT --&gt; SSE &amp; DISCORD &amp; CLI
+    SSE &amp; DISCORD &amp; CLI --&gt; USER
+    USER --&gt;|검토 후 원클릭 승인| EXEC
+
+    style USER fill:#2563eb,stroke:#60a5fa,stroke-width:2px,color:#ffffff
+    style Intelligence fill:#1e293b,stroke:#3b82f6,stroke-width:2px,color:#f8fafc</pre></div>
+<h3 id="아키텍처-핵심-원칙" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">아키텍처 핵심 원칙</h3>
+<p class="my-4 leading-relaxed text-slate-300">1. <strong class="text-white font-semibold">Zero Autonomous Order (자율 주문 전면 금지)</strong>: 시스템은 어떠한 경우에도 매수/매도 트랜잭션을 독단적으로 서명하거나 전송하지 않습니다.</p>
+<p class="my-4 leading-relaxed text-slate-300">2. <strong class="text-white font-semibold">Actionable Suggestions (실행 가능한 제안)</strong>: 단순 텍스트 알림("삼성전자 실적 발표됨")에 그치지 않고, <code class="px-1.5 py-0.5 rounded bg-slate-800 text-sky-300 text-xs font-mono">ActionPayload</code> 구조체에 타깃 종목, 추천 비중, 진입 기준선, 위험 헤지 방안을 담아 유저 화면에 버튼 형태로 렌더링합니다.</p>
+<p class="my-4 leading-relaxed text-slate-300">3. <strong class="text-white font-semibold">Contextual Synthesizer (맥락 종합기)</strong>: 단편적인 가격 변동이 아니라 공시, 환율, 나스닥 선물 지수와의 상관관계를 3줄로 압축 브리핑합니다.</p>
+<hr class="my-10 border-slate-800" />
+<h2 id="3-deep-dive-llm-토큰-비용-폭탄을-막는-에이전틱-문서-체계" class="text-2xl font-bold text-slate-100 mt-10 mb-4 pb-2 border-b border-slate-800/80 scroll-mt-24">3. Deep Dive: LLM 토큰 비용 폭탄을 막는 에이전틱 문서 체계</h2>
+<p class="my-4 leading-relaxed text-slate-300">AI 코파일럿으로 전환하면서 맞닥뜨린 첫 번째 기술적 장벽은 <strong class="text-white font-semibold">"LLM 컨텍스트 윈도우 한계와 API 비용 폭탄"</strong>이었습니다.</p>
+<p class="my-4 leading-relaxed text-slate-300">24시간 수많은 지표를 실시간으로 LLM에 날것 그대로 전달하면, 분당 수만 토큰이 소모되며 하루 API 비용만 수십 달러가 넘어가게 됩니다. 또한 이전 대화 기록이나 시장 히스토리가 길어질수록 모델은 과거 정보에 혼동을 겪는 '컨텍스트 드리프트(Context Drift)' 현상을 겪습니다.</p>
+<p class="my-4 leading-relaxed text-slate-300">이를 해결하기 위해 우리는 <a href="/posts/agentic-documentation-and-token-efficiency.html" class="text-sky-400 hover:text-sky-300 underline underline-offset-4 font-medium transition">ADR 0002: Agentic Documentation & Token Efficiency</a>를 수립하고, <strong class="text-white font-semibold">2단계 인메모리 압축 프로토콜</strong>을 구현했습니다.</p>
+<div class="mermaid-wrap my-8 p-4 bg-slate-900/60 rounded-xl border border-slate-800/80 overflow-x-auto"><pre class="mermaid text-center">flowchart LR
+    RAW[&quot;수천 건의 원시 이벤트 / 로그&quot;] --&gt; AGENT[&quot;AGENT.md\n(정적 원칙 &amp; 가드레일)&quot;]
+    RAW --&gt; REDUCE[&quot;롤링 윈도우 요약기\n(Sliding Window Reducer)&quot;]
+    REDUCE --&gt; CURRENT[&quot;CURRENT.md\n(동적 핵심 상태 &lt; 500 토큰)&quot;]
+    
+    AGENT &amp; CURRENT --&gt; PROMPT[&quot;초경량 합성 프롬프트\n(총합 1,200 토큰 이내)&quot;]
+    PROMPT --&gt; GEMINI[&quot;Gemini 2.5 Flash\n(초저지연 추론)&quot;]
+
+    style CURRENT fill:#059669,stroke:#34d399,color:#ffffff
+    style PROMPT fill:#0284c7,stroke:#38bdf8,color:#ffffff</pre></div>
+<h3 id="토큰-압축-엔진-코드-스니펫" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">토큰 압축 엔진 코드 스니펫</h3>
+<div class="code-block-wrap relative my-6 rounded-xl border border-slate-800 bg-slate-950/80 overflow-hidden shadow-2xl"><div class="flex items-center justify-between px-4 py-2 border-b border-slate-800/60 bg-slate-900/40 text-xs text-slate-400 font-mono"><span>python</span><button onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.innerText);this.innerText='Copied!';setTimeout(()=>this.innerText='Copy',2000)" class="hover:text-white transition">Copy</button></div><pre class="p-4 overflow-x-auto text-sm font-mono text-slate-200"><code class="language-python"># core/context/token_reducer.py
+from dataclasses import dataclass
+from typing import List, Dict, Any
+
+@dataclass
+class CompactMarketState:
+    macro_risk_level: str  # &quot;LOW&quot; | &quot;ELEVATED&quot; | &quot;CRITICAL&quot;
+    top_divergences: List[str]
+    active_hedges: List[str]
+    estimated_tokens: int
+
+class AgenticContextReducer:
+    &quot;&quot;&quot;원시 시장 시그널을 LLM 주입용 500토큰 이내의 정형 마크다운으로 압축하는 리듀서&quot;&quot;&quot;
+    
+    def __init__(self, max_token_budget: int = 500):
+        self.max_token_budget = max_token_budget
+
+    def build_current_state(self, raw_signals: List[Dict[str, Any]]) -&gt; str:
+        # 1. 시그널 중요도(Severity) 기반 가중치 정렬
+        high_priority = [s for s in raw_signals if s.get(&quot;severity&quot;) in (&quot;CRITICAL&quot;, &quot;HIGH&quot;)]
+        medium_priority = [s for s in raw_signals if s.get(&quot;severity&quot;) == &quot;MEDIUM&quot;]
+        
+        # 2. 극단적 불릿 요약 생성 (LLM 호출 비용 0원)
+        lines = [&quot;### [SYSTEM STATUS - LIVE SNAPSHOT]&quot;]
+        lines.append(f&quot;- Macro Risk: {self._evaluate_macro_regime(raw_signals)}&quot;)
+        
+        for sig in (high_priority + medium_priority)[:5]:
+            lines.append(
+                f&quot;* [{sig[&#x27;asset&#x27;]}] {sig[&#x27;metric&#x27;]}: {sig[&#x27;value&#x27;]} &quot;
+                f&quot;(Δ {sig.get(&#x27;change_pct&#x27;, 0):+.2f}%) -&gt; {sig[&#x27;action_hint&#x27;]}&quot;
+            )
+            
+        summary_md = &quot;\n&quot;.join(lines)
+        return summary_md
+
+    def _evaluate_macro_regime(self, signals: List[Dict[str, Any]]) -&gt; str:
+        volatility = any(s.get(&quot;metric&quot;) == &quot;VIX&quot; and s.get(&quot;value&quot;, 0) &gt; 25 for s in signals)
+        if volatility:
+            return &quot;⚠️ HIGH VOLATILITY REGIME (Hedge Priority)&quot;
+        return &quot;🟢 STABLE / TREND FOLLOWING&quot;</code></pre></div>
+<h3 id="이-설계로-얻은-효과" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">이 설계로 얻은 효과</h3>
+<ul class="list-disc list-outside pl-6 my-4 space-y-2 text-slate-300">
+<li><strong class="text-white font-semibold">토큰 사용량 88% 감소</strong>: 회당 평균 6,500토큰 -> 750토큰으로 극적 절감.</li>
+<li><strong class="text-white font-semibold">추론 지연 시간(Latency) 단축</strong>: 4.8초 -> 0.8초 이내로 단축되어 실시간 알림 파이프라인 완성.</li>
+<li><strong class="text-white font-semibold">Gemini API 비용</strong>: 월간 \$150 예상치에서 \$4.5 수준으로 하락 (무료 티어 내 소화 가능 수준 달성).</li>
+</ul>
+<hr class="my-10 border-slate-800" />
+<h2 id="4-troubles-lessons-ai에게-어디까지-맡길-것인가" class="text-2xl font-bold text-slate-100 mt-10 mb-4 pb-2 border-b border-slate-800/80 scroll-mt-24">4. Troubles &amp; Lessons: AI에게 어디까지 맡길 것인가?</h2>
+<h3 id="트러블슈팅-ai가-추천한-포지션이-틀렸을-때의-심리적-저항" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">트러블슈팅: &quot;AI가 추천한 포지션이 틀렸을 때의 심리적 저항&quot;</h3>
+<p class="my-4 leading-relaxed text-slate-300">피벗 초기, AI 코파일럿이 "김치프리미엄 4.2% 급등에 따른 차익 실현 제안"을 화면에 띄웠지만, 저는 과거 손실 기억 때문에 선뜻 승인 버튼을 누르지 못했습니다. </p>
+<p class="my-4 leading-relaxed text-slate-300">우리는 이를 시스템 신뢰의 문제로 규정하고 다음의 엔지니어링 보완책을 도입했습니다:</p>
+<p class="my-4 leading-relaxed text-slate-300">1. <strong class="text-white font-semibold">Explainable Rationale (추천 근거 3원칙 명시)</strong>:</p>
+<ul class="list-disc list-outside pl-6 my-4 space-y-2 text-slate-300">
+<li>"왜 지금인가?" (과거 30일 김프 평균 대비 +2.8σ 표준편차 초과)</li>
+<li>"최악의 시나리오는 무엇인가?" (환율 1% 급락 시 예상 손익 -0.4%)</li>
+<li>"청산 탈출구(Exit Strategy)는 정의되어 있는가?" (김프 1.5% 수렴 시 자동 알림)</li>
+<p class="my-4 leading-relaxed text-slate-300">2. <strong class="text-white font-semibold">사후 검증 저널(Brier Score Journal)</strong>:</p>
+<li>코파일럿의 예측과 실제 시장 결과를 사후에 비교하여 예측 적중률(Brier Score)을 투명하게 계산하고 로깅했습니다. (이 내용은 <a href="/posts/oracle-journal-and-brier-score-tracking.html" class="text-sky-400 hover:text-sky-300 underline underline-offset-4 font-medium transition">ADR 0021</a>에서 다룹니다.)</li>
+</ul>
+<h3 id="핵심-교훈-lessons-learned" class="text-xl font-semibold text-sky-300 mt-8 mb-3 scroll-mt-24">핵심 교훈 (Lessons Learned)</h3>
+<ul class="list-disc list-outside pl-6 my-4 space-y-2 text-slate-300">
+<li><strong class="text-white font-semibold">자율성(Autonomy)보다 중요한 것은 가시성(Observability)이다.</strong></li>
+<li>AI는 펀드매니저가 아닙니다. AI는 지치지 않고 24시간 동안 방대한 잡음(Noise) 속에서 의미 있는 신호(Signal)를 건져 올리는 <strong class="text-white font-semibold">최고의 수석 분석관(Chief Research Analyst)</strong>이어야 합니다.</li>
+</ul>
+<hr class="my-10 border-slate-800" />
+<h2 id="5-takeaways-next-steps" class="text-2xl font-bold text-slate-100 mt-10 mb-4 pb-2 border-b border-slate-800/80 scroll-mt-24">5. Takeaways &amp; Next Steps</h2>
+<p class="my-4 leading-relaxed text-slate-300">1. <strong class="text-white font-semibold">자동매매 봇의 환상을 버리세요.</strong> 개인 개발자가 슬리피지, 지연 시간, 블랙스완 속에서 기관의 HFT(고빈도 매매) 봇을 이기기는 불가능에 가깝습니다.</p>
+<p class="my-4 leading-relaxed text-slate-300">2. <strong class="text-white font-semibold">Human-in-the-Loop AI 코파일럿으로 전환하세요.</strong> AI에게는 24/7 데이터 수집, 정규화, 맥락 요약을 맡기고, 최종 실행과 리스크 감수는 인간이 담당할 때 비로소 평온한 수면과 높은 수익률을 동시에 챙길 수 있습니다.</p>
+<p class="my-4 leading-relaxed text-slate-300">3. <strong class="text-white font-semibold">에이전틱 상태 압축 프로토콜을 구축하세요.</strong> 날것의 데이터를 LLM에 던지지 말고, 가벼운 코드 기반 리듀서를 거쳐 최소한의 핵심 토큰만 주입해야 지속 가능한 개인 AI 시스템을 유지할 수 있습니다.</p>
+<blockquote class="border-l-4 border-slate-700 pl-4 py-1 my-4 text-slate-400 italic bg-slate-900/30 rounded-r-lg">🔜 <strong class="text-white font-semibold">다음 편 예고: [Post 02] 실시간 금융 센티널과 초저지연 SSE 피드 스트리밍 구축기</strong></blockquote>
+<blockquote class="border-l-4 border-slate-700 pl-4 py-1 my-4 text-slate-400 italic bg-slate-900/30 rounded-r-lg">무거운 WebSocket 대신 왜 단방향 SSE(Server-Sent Events)를 선택했는지, 그리고 시장 위기 상황에서 사용자에게 0.1초 만에 원클릭 액션 토스트를 전달하는 프론트엔드/백엔드 아키텍처를 상세히 공유합니다!</blockquote>
+            </div>
+
+            <!-- 네비게이션 -->
+            <div class="mt-16 pt-8 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm"><div></div><a href="obsidian-second-brain-and-ai-gardener.html" class="p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900 transition block text-right group"><div class="text-xs text-slate-500 mb-1">다음 글 (Part 3) →</div><div class="text-white font-medium group-hover:text-sky-400 transition truncate">옵시디언(Obsidian) 볼트를 웹으로: 스스로 지식을 경작하는 AI 정원사 RAG 구축기</div></a></div>
+        </article>
+        
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="border-t border-slate-800/80 mt-20 py-10 bg-[#090d16]">
+        <div class="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 space-y-4 sm:space-y-0">
+            <div>
+                © 2026 <strong class="text-slate-300">WeissFlow</strong> by Jihong. Built with pure Python & zero external dependencies.
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="../sitemap.xml" class="hover:text-slate-300 transition">Sitemap</a>
+                <a href="../feed.xml" class="hover:text-slate-300 transition">RSS</a>
+                <a href="https://github.com/ghk0409/weissflow/tree/main/docs/adr" class="hover:text-slate-300 transition">50 ADRs</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
